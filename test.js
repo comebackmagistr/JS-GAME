@@ -321,3 +321,5 @@ const lifeCycle = () => {
 
 // Запуск
 start();
+
+
