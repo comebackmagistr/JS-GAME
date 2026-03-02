@@ -1,25 +1,38 @@
-<div
-  id="img-block"
-  style="
-    width: 288px;
-    height: 288px;
-    overflow: hidden;
-    position: relative;
-    left: 0px;
-  "
->
+<div id="canvas" style="background-color: white">
   <img
-    id="hero-img"
+    src="./assets/fullscreen.png"
+    id="fsBtn"
     style="
-      width: 1728px;
-      height: 1152px;
-      position: relative;
-      top: -576px;
-      left: 0px;
-      transform: scale(-1, 1);
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
     "
-    src="./hero-sprite.png"
   />
+  <div
+    id="img-block"
+    style="
+      width: 288px;
+      height: 288px;
+      overflow: hidden;
+      position: relative;
+      left: 0px;
+    "
+  >
+    <img
+      id="hero-img"
+      style="
+        width: 1728px;
+        height: 1152px;
+        position: relative;
+        top: 0px;
+        left: -288px;
+        transform: scale(-1, 1);
+      "
+      src="./assets/hero-sprite.png"
+    />
+  </div>
 </div>
 
 <script src="script.js"></script>
