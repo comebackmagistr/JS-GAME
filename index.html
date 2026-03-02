@@ -1,52 +1,25 @@
-<button id="left" style="font-size: 60pt; padding: 30pt">Left</button>
-<button id="right" style="font-size: 60pt; padding: 30pt">Right</button>
-<!-- <p
-  id="hero"
+<div
+  id="img-block"
   style="
-    background-color: blue;
-    font-size: 25pt;
-    padding: 20pt;
-    width: 30%;
-    text-align: center;
+    width: 288px;
+    height: 288px;
+    overflow: hidden;
     position: relative;
     left: 0px;
   "
-  ]
 >
-  textr
-</p> -->
-<div style="width: 288px; height: 288px; overflow: hidden">
   <img
     id="hero-img"
-    style="width: 1728px; height: 1152px"
+    style="
+      width: 1728px;
+      height: 1152px;
+      position: relative;
+      top: -576px;
+      left: 0px;
+      transform: scale(-1, 1);
+    "
     src="./hero-sprite.png"
   />
 </div>
 
-<script>
-  // Переменные
-  let heroImg = window.document.querySelector("#hero-img");
-  let rightButton = window.document.querySelector("#right");
-  let leftButton = window.document.querySelector("#left");
-  let position = 0;
-  // Функции
-  const rightHandler = () => {
-    position += 20;
-    hero.style.left = `${position}px`;
-  };
-  const leftHandler = () => {
-    position -= 20;
-    hero.style.left = `${position}px`;
-  };
-  // Обработчики событий
-  rightButton.onclick = rightHandler;
-  leftButton.onclick = leftHandler;
-  //   const clickHandler = () => {
-  //     if (hero.style.backgroundColor === "grey") {
-  //       hero.style.backgroundColor = "blue";
-  //     } else {
-  //       hero.style.backgroundColor = "grey";
-  //     }
-  //   };
-  //   hero.onclick = clickHandler;
-</script>
+<script src="script.js"></script>
