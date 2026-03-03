@@ -232,6 +232,14 @@ const addTiles = (items) => {
 // Классовые компоненты
 
 class Enemy {
+  ATTACK = "attack";
+  DEATH = "death";
+  HURT = "hurt";
+  IDLE = "idle";
+  WALK = "walk";
+  state;
+  animateWasChanged;
+  startX;
   posX;
   posY;
   img;
@@ -240,12 +248,19 @@ class Enemy {
   spritePos;
   spriteMaxPos;
   timer;
+  sourcePath;
+  dir;
   constructor(x, y) {
+    this.state = "idle";
+    this.animateWasChanged = false;
     this.posX = x;
+    this.startX = this.posX;
     this.posY = y;
     this.blockSize = 96;
     this.spritePos = 0;
     this.spriteMaxPos = 3;
+    this.dir = 0.5;
+    this.sourcePath = "./assets/Enemies/1/";
 
     this.createImg();
     this.lifeCycle();
@@ -260,7 +275,7 @@ class Enemy {
     this.block.style.overflow = "hidden";
 
     this.img = window.document.createElement("img");
-    this.img.src = "./assets/Enemies/1/Idle.png";
+    this.img.src = this.sourcePath + "Idle.png";
     this.img.style.position = "absolute";
     this.img.style.left = 0;
     this.img.style.bottom = 0;
@@ -272,7 +287,35 @@ class Enemy {
   }
   lifeCycle() {
     this.timer = setInterval(() => {
+      if (this.animateWasChanged) {
+        this.animateWasChanged = false;
+        switch (this.state) {
+          case this.ATTACK:
+            this.img.style.width = this.blockSize * 6;
+            this.setAttack();
+            break;
+          case this.DEATH:
+            this.img.style.width = this.blockSize * 6;
+            this.setDeath();
+            break;
+          case this.HURT:
+            this.img.style.width = this.blockSize * 2;
+            this.setHurt();
+            break;
+          case this.IDLE:
+            this.setIdle();
+            break;
+          case this.WALK:
+            this.img.style.width = this.blockSize * 6;
+            this.setWalk();
+            break;
+          default:
+            break;
+        }
+      }
+
       this.spritePos++;
+      this.move();
       this.animate();
     }, 150);
   }
@@ -281,6 +324,42 @@ class Enemy {
       this.spritePos = 0;
     }
     this.img.style.left = -(this.spritePos * this.blockSize);
+  }
+  setAttack() {
+    this.img.src = this.sourcePath + "Attack.png";
+    this.spriteMaxPos = 5;
+  }
+  setDeath() {
+    this.img.src = this.sourcePath + "Death.png";
+    this.spriteMaxPos = 5;
+  }
+  setHurt() {
+    this.img.src = this.sourcePath + "Hurt.png";
+    this.spriteMaxPos = 1;
+  }
+  setIdle() {
+    this.img.src = this.sourcePath + "Idle.png";
+    this.spriteMaxPos = 3;
+  }
+  setWalk() {
+    this.img.src = this.sourcePath + "Walk.png";
+    this.spriteMaxPos = 3;
+  }
+  changeAnimate(stateStr) {
+    this.state = stateStr;
+    this.animateWasChanged = true;
+  }
+  move() {
+    if (this.posX > this.startX + 10) {
+      this.dir *= -1;
+      this.img.style.transform = "scale(-1, 1)";
+    } else if (this.posX <= this.startX) {
+      this.dir = Math.abs(this.dir);
+      this.img.style.transform = "scale(1, 1)";
+    }
+    this.changeAnimate(this.WALK);
+    this.posX += this.dir;
+    this.block.style.left = this.posX * 32;
   }
 }
 
